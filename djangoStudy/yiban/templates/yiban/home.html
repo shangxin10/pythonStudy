@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DCITS</title>
+</head>
+<body>
+
+<a href="{% url 'add2' 4 5 %}">计算 4+5</a>
+<br/><br/>
+
+{% for i in TutorialList %}
+{{ i }}
+{% endfor %}
+<br/><br/>
+
+站点：{{ info_dict.site }} 内容：{{ info_dict.content }}
+<br/><br/>
+
+{% for key, value in info_dict.items %}
+    {{ key }}: {{ value }}
+{% endfor %}
+<br/><br/>
+
+{% for item in List %}
+    {{ item }}{% if not forloop.last %},{% endif %}
+{% endfor %}
+<br/><br/>
+
+<ul>
+{% for athlete in athlete_list %}
+    <li>{{ athlete.name }}</li>
+{% empty %}
+    <li>抱歉，列表为空</li>
+{% endfor %}
+</ul>
+</body>
+</html>
