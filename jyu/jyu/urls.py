@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^loginPost$',student_views.loginPost),
     url(r'^logout$',student_views.logout),
     url(r'^home$',student_views.home),
+    url(r'^score',student_views.score, name='score'),
     url(r'^admin/', admin.site.urls),
 
 ]

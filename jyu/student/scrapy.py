@@ -16,6 +16,7 @@ def login(username,password):
 
         tree = html.fromstring(content)
         viewstate = tree.xpath("//input[@name='__VIEWSTATE']/@value")
+        print(viewstate)
         type = list(set(tree.xpath("//input[@name='RadioButtonList1']/@value")))[3]
 
         # Create payload
@@ -44,7 +45,7 @@ def login(username,password):
         # Perform login
         result = requests.post(url, data = payload, headers = headers)
         tree = html.fromstring(result.text)
-        # print(result.text)
+        print(result.text)
 
         xm = list(set(tree.xpath("//span[@id='xhxm']/text()")))[0]
         xm = xm.replace(" ","")

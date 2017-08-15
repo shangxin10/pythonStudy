@@ -38,7 +38,7 @@ def logout(request):
 def home(request):
     return render(request,'student/index.html')
 
-def lncj(request):
+def score(request):
     #爬取成绩页面的token
     username = request.session['user']
     scrapyMsg = request.session['scrapyMsg']
