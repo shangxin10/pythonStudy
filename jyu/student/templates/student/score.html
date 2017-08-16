@@ -26,7 +26,7 @@
             <h1 class="title">我的生活</h1>
           </header>
           <nav class="bar bar-tab">
-            <a class="tab-item active" href="#">
+            <a class="tab-item " href="#">
               <span class="icon icon-home"></span>
               <span class="tab-label">首页{{username}}   {{password}}</span>
             </a>
@@ -34,7 +34,7 @@
               <span class="icon icon-me"></span>
               <span class="tab-label">课表</span>
             </a>
-            <a class="tab-item" href="{%url 'score'%}">
+            <a class="tab-item active" href="{url 'score'}">
               <span class="icon icon-star"></span>
               <span class="tab-label">成绩</span>
             </a>
@@ -44,7 +44,25 @@
             </a>
           </nav>
           <div class="content">
-            <!-- 这里是页面内容区 -->
+            <div class="content-block-title">图标、标题和副标题</div>
+              <div class="list-block">
+                <ul>
+                  <li class="item-content">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner">
+                      <div class="item-title">商品名称</div>
+                      <div class="item-after">杜蕾斯</div>
+                    </div>
+                  </li>
+                  <li class="item-content">
+                    <div class="item-media"><i class="icon icon-f7"></i></div>
+                    <div class="item-inner">
+                      <div class="item-title">型号</div>
+                      <div class="item-after">极致超薄型</div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
           </div>
         </div>
     </div>

@@ -39,15 +39,16 @@ def home(request):
     return render(request,'student/index.html')
 
 def score(request):
+    return render(request, 'student/score.html')
     #爬取成绩页面的token
-    username = request.session['user']
-    scrapyMsg = request.session['scrapyMsg']
-    result = scrapy.loadScorePage(username, scrapyMsg['xm'], scrapyMsg['url'])
-    if not result:
-        return JsonResponse({'rtnMsg': '获取历年成绩失败！', 'rtnCode': '9000'})
-    else:
-        scoreList = scrapy.loadlncj(result['viewstate'], result['scoreurl'],result['header'])
-        if not result:
-            return JsonResponse({'rtnMsg': '获取历年成绩失败！', 'rtnCode': '9000'})
-        else:
-            return JsonResponse({'rtnMsg': '获取历年成绩成功！', 'rtnCode': '2000', 'data': scoreList})
+    # username = request.session['user']
+    # scrapyMsg = request.session['scrapyMsg']
+    # result = scrapy.loadScorePage(username, scrapyMsg['xm'], scrapyMsg['url'])
+    # if not result:
+    #     return JsonResponse({'rtnMsg': '获取历年成绩失败！', 'rtnCode': '9000'})
+    # else:
+    #     scoreList = scrapy.loadlncj(result['viewstate'], result['scoreurl'],result['header'])
+    #     if not result:
+    #         return JsonResponse({'rtnMsg': '获取历年成绩失败！', 'rtnCode': '9000'})
+    #     else:
+    #         return JsonResponse({'rtnMsg': '获取历年成绩成功！', 'rtnCode': '2000', 'data': scoreList})
