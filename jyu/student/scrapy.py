@@ -5,6 +5,14 @@ from lxml import html
 
 
 LOGIN_URL = "http://210.38.162.116/default2.aspx"
+HEADER = {
+            'User-Agent': 'Mozilla / 5.0(Windows NT 6.1;WOW64) AppleWebKit / 537.36(KHTML, likeGecko) Chrome / 59.0.3071.115Safari537.36',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+            'Accept-Language': 'zh-CN,zh;q=0.8'
+        }
+
+
 
 
 def login(username,password):
@@ -12,7 +20,6 @@ def login(username,password):
         request = requests.get(LOGIN_URL)
         content = request.text
         url = request.url
-
 
         tree = html.fromstring(content)
         viewstate = tree.xpath("//input[@name='__VIEWSTATE']/@value")
@@ -33,48 +40,35 @@ def login(username,password):
         }
 
         # Create header
-        headers = {
-            'User-Agent': 'Mozilla / 5.0(Windows NT 6.1;WOW64) AppleWebKit / 537.36(KHTML, likeGecko) Chrome / 59.0.3071.115Safari537.36',
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-            'Accept-Language': 'zh-CN,zh;q=0.8',
-            'Referer': url
-        }
-
+        HEADER['Referer'] = url;
 
         # Perform login
-        result = requests.post(url, data = payload, headers = headers)
+        result = requests.post(url, data = payload, headers = HEADER)
         tree = html.fromstring(result.text)
-        print(result.text)
 
         xm = list(set(tree.xpath("//span[@id='xhxm']/text()")))[0]
         xm = xm.replace(" ","")
         xm = xm[9:-2]
-        return {'username':username,'xm':xm,'url':url}
+
+        return result.url
     except Exception, e:
         return None
 
-def loadScorePage(username,xm,url):
+def loadScorePage(url):
     try:
         # Scrape url
-        scoreurl = url.replace("default2","xscjcx") + "?xh=" + username + "&xm=" + xm + "&gnmkdm=N121605"
-        headers = {
-            'User-Agent': 'Mozilla / 5.0(Windows NT 6.1;WOW64) AppleWebKit / 537.36(KHTML, likeGecko) Chrome / 59.0.3071.115Safari537.36',
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-            'Accept-Language': 'zh-CN,zh;q=0.8',
-            'Referer': url
-        }
+        scoreurl = url.replace("xs_main","xscjcx") + "&gnmkdm=N121605"
+        HEADER['Referer'] = url;
 
-        result = requests.get(scoreurl, headers = headers)
-        # print(result.text)
+        result = requests.get(scoreurl, headers = HEADER)
+
         tree = html.fromstring(result.text)
         viewstate = tree.xpath("//input[@name='__VIEWSTATE']/@value")
-        return {'viewstate':viewstate, 'scoreurl': scoreurl, 'headers': headers}
+        return {'viewstate':viewstate, 'url': scoreurl}
     except Exception, e:
         return None
 
-def loadlncj(viewstate, scoreurl, headers):
+def loadlncj(viewstate, url):
     try:
         payload = {
             "__EVENTTARGET": "",
@@ -86,7 +80,8 @@ def loadlncj(viewstate, scoreurl, headers):
             "ddl_kcxz": "",
             "btn_zcj": "历年成绩",
         }
-        result = requests.post(scoreurl, data = payload, headers = headers)
+        HEADER['Referer'] = url;
+        result = requests.post(url, data = payload,headers=HEADER)
         tree = html.fromstring(result.text)
         print(result.text)
         datatable = list(set(tree.xpath("//table[@id='Datagrid1']/tr")))
