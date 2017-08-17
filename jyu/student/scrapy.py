@@ -92,8 +92,9 @@ def loadlncj(viewstate, url):
             j = 0
             dict = {}
             for td in tr.findall("td"):
-                dict[lncjTable[j]] = td.text;
-                print dict[lncjTable[j]];
+                dict[lncjTable[j]] = td.text
+                j = j + 1
+                print dict[lncjTable[j]]
             i = i + 1
             lncjList.append(dict)
             print ""

@@ -43,7 +43,6 @@ def score(request):
     #爬取成绩页面的token
     url = request.session['url']
     result = scrapy.loadScorePage(url)
-    print "======"
     if not result:
         return render(request, 'student/score.html',{'rtnMsg': '获取历年成绩失败！', 'rtnCode': '9000'})
     else:
