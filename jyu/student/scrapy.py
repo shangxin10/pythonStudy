@@ -64,7 +64,6 @@ def loadScorePage(url):
 
         tree = html.fromstring(result.text)
         viewstate = tree.xpath("//input[@name='__VIEWSTATE']/@value")
-        print("====")
         return {'viewstate':viewstate, 'url': scoreurl}
     except Exception, e:
         return None
